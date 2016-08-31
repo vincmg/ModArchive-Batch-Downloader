@@ -11,8 +11,8 @@ if __name__ == '__main__':
 	os.chdir(savedirectory)
 
 	for i in range(int(sys.argv[2]), int(sys.argv[3]) + 1):
-		filename, headers = urllib.request.urlretrieve('https://api.modarchive.org/downloads.php?moduleid={}'.format(i), filename="moduleid_{}".format(i))
 		print("Downloading {}".format(filename))
+		filename, headers = urllib.request.urlretrieve('https://api.modarchive.org/downloads.php?moduleid={}'.format(i), filename="moduleid_{}".format(i))
 
 		match = find_orig_filename.search(headers.as_string())
 
