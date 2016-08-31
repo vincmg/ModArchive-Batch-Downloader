@@ -12,7 +12,7 @@ if __name__ == '__main__':
 
 	for i in range(int(sys.argv[2]), int(sys.argv[3]) + 1):
 		filename, headers = urllib.request.urlretrieve('https://api.modarchive.org/downloads.php?moduleid={}'.format(i), filename="moduleid_{}".format(i))
-		print("Downloaded {}".format(filename))
+		print("Downloading {}".format(filename))
 
 		match = find_orig_filename.search(headers.as_string())
 
@@ -21,3 +21,5 @@ if __name__ == '__main__':
 			orig_filename = match.group(1)
 			print("\tRenaming {} to {}".format(filename, match.group(1)))
 			os.rename(filename, orig_filename)
+		else:
+			print("\tCould not download {}".format(filename))
