@@ -11,11 +11,13 @@ if __name__ == '__main__':
 	os.chdir(savedirectory)
 
 	for i in range(int(sys.argv[2]), int(sys.argv[3]) + 1):
-		filename, headers = urllib.request.urlretrieve('https://api.modarchive.org/downloads.php?moduleid={}'.format(i), filename=i)
-		print("Downloaded moduleid {}".format(filename))
+		filename, headers = urllib.request.urlretrieve('https://api.modarchive.org/downloads.php?moduleid={}'.format(i), filename="moduleid_{}".format(i))
+		print("Downloaded {}".format(filename))
 
-		# there should always be a match unless the website has changed.
 		match = find_orig_filename.search(headers.as_string())
-		orig_filename = match.group(1)
-		print("\tRenaming {} to {}".format(filename, match.group(1)))
-		os.rename(filename, orig_filename)
+
+		# there are some moduleid numbers that can't be found
+		if match is not None:
+			orig_filename = match.group(1)
+			print("\tRenaming {} to {}".format(filename, match.group(1)))
+			os.rename(filename, orig_filename)
